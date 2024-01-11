@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheets Form</title>
+</head>
+<body>
+  <form id="quizForm">
+    <label for="question1">What is 2 + 2?</label>
+    <input type="text" name="question1" required><br>
+
+    <label for="question2">Who is the best YouTuber?</label>
+    <select name="question2" required>
+      <option value="Dev Ed">Dev Ed</option>
+      <option value="Fun Fun Function">Fun Fun Function</option>
+    </select><br>
+
+    <label for="question3">Is web development fun?</label>
+    <input type="text" name="question3" required><br>
+
+    <label for="question4">What is 4 * 2?</label>
+    <input type="text" name="question4" required><br>
+
+    <label for="question5">What is my name?</label>
+    <input type="text" name="question5" required><br>
+
+    <label for="question6">Is Pallu good looking?</label>
+    <input type="text" name="question6" required><br>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script>
+    function submitForm() {
+      var formData = {
+        question1: document.forms["quizForm"]["question1"].value,
+        question2: document.forms["quizForm"]["question2"].value,
+        question3: document.forms["quizForm"]["question3"].value,
+        question4: document.forms["quizForm"]["question4"].value,
+        question5: document.forms["quizForm"]["question5"].value,
+        question6: document.forms["quizForm"]["question6"].value,
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbwvZQ7VhzfveAlf41b6NzfuXb5_320juNYY43omt6TlXMwjPkCpqXRLhzEQapLCJSI2OQ/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Form submitted successfully!');
+        } else {
+          alert('Error submitting form. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>
